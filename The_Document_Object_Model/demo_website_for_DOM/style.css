@@ -1,0 +1,11 @@
+.btn {
+  color: blue;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.huge {
+  font-size: 10rem;
+}
