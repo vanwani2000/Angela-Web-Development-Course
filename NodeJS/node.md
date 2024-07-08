@@ -117,6 +117,10 @@ To install NPM Pacakges -
 
 Type **_npm install "package_name"_** or **_npm install "package_name" "package_name" "package_name"_**
 
+For not going through the question section, just type -
+
+**_npm init -y_**. It will just initialize npm to your project which basic **pacakge.json** file
+
 Example -
 
 **npm i sillyname**
