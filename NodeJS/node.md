@@ -192,3 +192,7 @@ const name = randomSuperhero();
 
 console.log(`I am ${name}!`);
 ```
+
+> **NOTE:**
+>
+> For live-preview of javascript through node, use **_Nodemon_** package for live changes.
