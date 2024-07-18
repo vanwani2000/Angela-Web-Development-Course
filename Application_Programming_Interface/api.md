@@ -363,3 +363,139 @@ app.get("/", async (req, res) => {
 <img src="./images/Node_HTTPS_and_Axios.PNG" alt="Node_HTTPS_and_Axios" >
 
 <img src="./images/Axios_Request.PNG" alt="Axios_Request" >
+
+## API Authentication (Authenticating yourself with the API Provider)
+
+We were accessing the bored-api through axios from our servers and also through POSTMAN. But sometimes there are a lot of scenario where maybe you don't want everybody to be able to access your API.
+
+Let's imagine that we have our data locked up in a vault like a bank does, and our API is the front-desk where we can take and handle requests from customers to clients. So let' say somebody bad comes along and say "Well, I'd like to get 100 pounds please" using the API, and they try to get hold of some resource. But like as we have seen before, our API will simply say, "Well, here you go." Here's the money that you requested," and of he goes.
+
+**_What we want instead is in certain scenarios we want to be able to protect the resources behind our API using Authentication._**
+
+Well in the case, we need to know who are you when you're making these requests? (401) response status code. And depending on whether if you have the authorization or not, then we might say, "Oh 401, (Unauthorized)". Sorry you can't do that.
+
+In this lesson, we're going to be learning exactly how we can authenticate the user or the client that is making the API request and depending on whether or not they are authorized to make that request, we can send them the data or tell them, "No, sorry, that's not allowed."
+
+Authentications are four tiers -
+
+1. NO authentications - (Working so far)
+2. Basic Authentication
+3. API key Authorization
+4. Token Based Authentication
+
+**1. No Authentication** - Example (bored-api). None of the endpoints in the API required any sort of authentication.  
+Ques - So what can an API do to prevent abuse of the API?
+Ans - Api providers might add a safety check is to put in a **Rate Limit**.
+
+Example - As you saw in the bored API instance, we had a limit of 100 request per 15 minutes and I put in that rate limit so that under most cases as a student, that should be enough for you to work with the API, and get hold of the data and try out new things while learning API, without hitting it too much and then ending up making the API go down for everyone.
+
+So you can check each **IP Address**, how many requests they're making per minutre and based on some sort of arbitrary decision that you make, you can say, "Well, I'm going to limit it to this amount."
+
+You can see in Bored-API there is not any sort of authentication required in endpoint. So that anyone can access these endpoints by making the request and get the data back.But the API requests are in fact rate limited and that means that we do have some safety measures, although it is not a measure to authenticate or authorize any sort of API user.
+
+**2. Basic Authentication** - Well you provide a **username** and **password** when you make your API request. **_What does that means you are authenticating yourself to the API provider._**
+
+> Usually, the Basic Authentication is done by passing ove a **Base64** encoded string in the header of the request.
+
+What is BASE64 Encoding?
+
+It is basically taking TEXT which is ASCII, so anything that you can type on your keyboard and that can be converted into bits. And then we take the bits and then encode it into another character. So when we don Base64 encoding there is a bit of expansion. Example -
+
+1. Letter - MAN
+   Converted it into another letter using Base64 encoding -
+2. Letter - TWFU
+
+If you have spacing in your line of source encoding, then you might see an extra characters as well.
+
+<img src="./images/Base64_encoding.PNG" alt="Base64_encoding" >
+
+<img src="./images/Characters_And_Binary.PNG" alt="Characters_And_Binary" >
+
+As you can see from above image, each character that you can think of is represented in Binary. And then by taking that binary and passing it through a special encoding method, we end up with BASE64.
+
+Once we have data converted in BASE64 encoding, we generally sum them up in **username:password** format. Let's say username is **XXXXX** and password is **XXXXX**. So the format will look like **XXXXXXXXXX** and this data is in BASE64.
+
+Now we can add this BASE64 encoding data to Authorization header.
+
+Authorization: XXXXX:XXXXX.
+
+And then pass this data along when you make your request.
+
+### Exercise -
+
+Another Api from Angela [Secrets-API](secrets-api.appbrewery.com). Where we can share our confession to store in the database and then view each other or share each other confession anonymously or secretly.
+
+In this API, it has different endpoints with different levels of authentication.
+
+1. POST/register - register username and password by going into this endpoint.
+   Once we done that, we can go to **GET/all** endpoint to return all secrets, paginated and so on. For more information go to [Secrets-API](secrets-api.appbrewery.com)
+
+   Since this **GET/all** will return me huge amount of secret data, then there is no need to have large data, instead it has a query parameter of pages. How many pages you want to request from this api.
+
+> **NOTE:**
+>
+> When we are using Basic Authentication using POSTMAN, it's actually doing some magical stuff behind the scenes. What it's doing is it's generating the authorization header automatically based on the username and password here. You can see that by going onto the header section in POSTMAN.
+
+Header :
+Authorization: Basic kkljr9048949llske9iekKgfh
+Postman-Token: <calculated when request is sent>
+Host: <calculated when request is sent>
+User-Agent: PostmanRuntime/7.23.3
+and so on....
+
+> When you convert "kkljr9048949llske9iekKgfh" from [Base64 Encode and Decode](https://www.base64decode.org/). You will that the key is converted into this format "username:password", same as I mentioned above.
+
+**2. API Key Authorization** -
+
+**_Difference Between Authentication and Authorization - So the difference betweeen these two forms is if you have a user, they can authenticate themselves with your service. That means you are logging in or you are registering. But authorization is simply a client who is allowed to user service with an API key that might be associated with a user, in which case they are authenticating themselves and then getting an API key to authorize themselves to use your API. But it could just be you don't even need to register with the API provider and you can simply get hold of an API key and authorize yourself with the API Provider._**
+
+**_In simple terms - Authorization is something that allows you to use an API. Authentication is something that allows you to be identified as a user to the API provider._**
+
+Example -
+You'll see that a lot of public API's use ApI keys and it's really usefull because you can then track the usage per API key. So for example, if you signed up for the Google Maps API, you can use all sorts of different API that they provide, for example, the Places API to find all the different things that show up on GoogleMap, or you can use the Distant-Matrix to calculate the distance between two points in time, again using Google's API. And every single time when you make a request, you need to use this key before you get back a response, then they can log, well, how many request are you making with the key?
+
+<img src="./images/Google_Map_API.PNG" alt="Google_Map_API" >
+
+> **NOTE:**
+>
+> In above image you can see the user is making about 200,000 request per day on the PlacesAPI. And as with most public api, they have to stand up their own infrastructure, their own servers, they have to maintain these server computers, etc. There's a lot of cost involved , so it's often that they will charge you for using their APIs. Example, the person in the image above is racking up 2000$ worth of API usage and by looking at how often u are need to make request through your API key, they can determine, how much they should charge you.
+
+### Exercise
+
+1. Generate a API key from GET/generate-api-key
+
+```json
+{
+  "apiKey": "cceefb57-3991-45fd-85de-e412b747dcd7"
+}
+```
+
+2. GET/Filter returns a secret with particular embarrassment score or higher. API key authentication is required.
+   Query parameters -
+   1. apiKey
+   2. score
+
+**3. Token Based Authentication** -
+
+Why is it that we're increasing level of security?
+
+Well, no authentication is obvious, but Basic Authentication uses a username and password that's passed over as a BASE64 encoded string in the header. Now, I can easily convert this BASE64 decoded to decode the username:password. Now that means it's equally possible for somebody on the internet to intercept your API requests and to be able to do the same.
+
+So why do we still use it?
+Well, most API providers that use Basic Authentication will have HTTPS on their domain, which means that we're using **cryptography** to securely encode all the data that being passed back and forth. And even if somebody intercepts the packets, they won't be viewing the string as what we saw, instead, it will be not more decodable. But yet, it's still passing username and password and if it's less secure website or there is something that goes wrong, then there is a risk there.
+
+Now, API key authorization is a little bit more secure because nowhere do we actually type in our username and password, instead we have this API key which can be **deleted** and **regenerated**. You can also rate limit it. I'm generating this key, but I only want to make say a thousand requests a month, so I'm only paying for that amount. So even if somebody intercepts this API key, they wont' be able to get hold of the username and password. They wont' have any of your payment details. It is just a reusable code that you're using to access an API.
+
+**_Finally, the token based authorization or authentication is even more secure because essentially we're getting the user to use a username and password to log in and then once they've logged in, we generate a token to be used with the API so the API doesn't get involved with the username and password and instead it's the token that's constantly being used to interact with the API._**
+
+> **NOTE:**
+>
+> Normally, you'll see Token Based Authentication as **OAuth** and **OAuth 2.0** is probably the industry standard, for doing token-based authentication.
+
+So what actually goes behind the scene?
+
+You have a user for a service and you want to be able to act on their behalf, so you get them to sign in with their username and password on the API provider's website and then the API provider generated the token, and then this token can be passed back to you as the third party and you can use this token to interact with the API.
+
+Example -
+
+So, let's say you are building a third party app, say it's a weather app, but you have a special twist onthe app where you are going to hold of a user's events int their Google Calendar. So you want to see that they have a meeting, for example, one Tuesday and it's happening in Baltimore. So you grab all of these pieces of data and you look at the weather for that location and that date, and maybe you would be able to send the user an alert to tell them to bring an umbrella to that particular location. That's the idea behind interacting with the Google Calendar API.s For the user to be able to grant you access to this data. Well, what do you have to do? If you weren't using token-based authentication, then you would have to give the third party, the username and password, so that we can use this to interact with the Google Calendar API. Instead what we're able to do is we can use token-based authentication or OAuth to get the user to sign in with Google, and this generated a token for us to get hold of and then we can use this token to interact with the google calendar api. And then we can get hold of the user's event, their meetings, we can even post data or delete data. We can basically interact with Google Calendar as this user without ever needing to get hold of their username or password. And instead of all that security stuff is handled by Google. So this is a way more secure way of doing API Authentication.
