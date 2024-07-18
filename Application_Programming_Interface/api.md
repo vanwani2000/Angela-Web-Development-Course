@@ -317,3 +317,49 @@ const data = JSON.parse(jsonData);
 > Difference between Middleware and API
 
 <img src="./images/Difference_between_Middleware_and_API.PNG" alt="Difference_between_Middleware_and_API" >
+
+## Making Server Side API Requests with Axios
+
+Making requests from your server to an external API using Node and Axios
+
+What we are trying to achieve -
+
+<img src="./images/Server_to_Server_Request.PNG" alt="Server_to_Server_Request" >
+
+Now the code for this would look quite long and complicated if we're using native node modules such as **HTTPS** modules. So we use HTTPS to essentially make this request from our server, to reach out from our server to the API Provider Server.
+
+<img src="./images/Making_Request_Through_Native_Node.PNG" alt="Making_Request_Through_Native_Node" >
+
+Instead of writing so much lines of code, use **Axios** instead.
+
+**Axios** - We're trying to reach out from our server to another resource on the Internet and it makes these responses very simple. In the same way that Express makes creating our server using Node a lot simpler by simplifying a lot of the commonly used methods and requirements. Axios pretty much the same thing. Instead of all of that code that you saw on the image above, we pretty much just have these five lines of code -
+
+```js
+import axios from "axios";
+app.get("/", async (req, res) => {
+  try {
+    const response = await axios.get(
+      "https://bored-apit.appbrewery.com/random",
+    ); // Axios.get method is making the get request from this api.
+    // Await keyword is used to wait for axios.get() finished first and the going to the next line of res.render()
+    res.render("index.ejs", { activity: response.data });
+  } catch (error) {
+    console.error("Failed to make request:", error.message);
+    res.status(500).send("Failed to fetch activity. Please try again.");
+  }
+});
+```
+
+> **_The async keyword indicates this function is asynchronous, meaning it might involve waiting for some operation to complete before continuing._**
+>
+> **_Await keyword is used to wait for axios.get() finished first and the going to the next line of res.render()_**
+>
+> **_The await keyword pauses the execution of the function until the Axios request (axios.get(...)) finishes. This ensures we have the response data before proceeding._**
+>
+> **_We have'nt write "JSON.parse" method. What axios is doing it simple getting all the data of JSON coming from the api and converting into JS-Object._**
+>
+> **_The catch block handles any errors that might occur during the Axios request._**
+
+<img src="./images/Node_HTTPS_and_Axios.PNG" alt="Node_HTTPS_and_Axios" >
+
+<img src="./images/Axios_Request.PNG" alt="Axios_Request" >
