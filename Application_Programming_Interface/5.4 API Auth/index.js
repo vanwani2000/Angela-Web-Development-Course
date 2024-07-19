@@ -20,17 +20,21 @@ app.get("/noAuth", async (req, res) => {
   //The data you get back should be sent to the ejs file as "content"
   //Hint: make sure you use JSON.stringify to turn the JS object from axios into a string.
   try {
-    const response = await axios.get("https://secrets-api.appbrewery.com/random");
+    const response = await axios.get(
+      "https://secrets-api.appbrewery.com/random",
+    );
     const data = JSON.stringify(response.data);
     // console.log(data);
     res.render("index.ejs", {
       content: data,
     });
   } catch (error) {
-      console.error("Failed to make request", error.message);
-      res.render("index.ejs", {
-        content: Error
-      });
+    console.error("Failed to make request", error.message);
+    res.render("index.ejs", {
+      content: Error,
+    });
+    // Another way of sending error message with HTTP status code of 404
+    // res.status(404).send("Error: ", error.message);
   }
 });
 
@@ -47,13 +51,16 @@ app.get("/basicAuth", async (req, res) => {
       },
     });
   */
- try {
-    const response = await axios.get(`https://secrets-api.appbrewery.com/all?page=2`, {
+  try {
+    const response = await axios.get(
+      `https://secrets-api.appbrewery.com/all?page=2`,
+      {
         auth: {
           username: yourUsername,
-          password: yourPassword
+          password: yourPassword,
         },
-      });
+      },
+    );
     const data = JSON.stringify(response.data);
     res.render("index.ejs", {
       content: data,
@@ -63,6 +70,8 @@ app.get("/basicAuth", async (req, res) => {
     res.render("index.ejs", {
       content: "Error",
     });
+    // Another way of sending error message with HTTP status code of 404
+    // res.status(404).send("Error: ", error.message);
   }
 });
 
@@ -71,12 +80,15 @@ app.get("/apiKey", async (req, res) => {
   //Filter for all secrets with an embarassment score of 5 or greater
   //HINT: You need to provide a query parameter of apiKey in the request.
   try {
-    const response = await axios.get(`https://secrets-api.appbrewery.com/filter?srcore=5&apiKey=${yourAPIKey}`, {
-      auth: {
-        username: yourUsername,
-        password: yourPassword
+    const response = await axios.get(
+      `https://secrets-api.appbrewery.com/filter?srcore=5&apiKey=${yourAPIKey}`,
+      {
+        auth: {
+          username: yourUsername,
+          password: yourPassword,
+        },
       },
-    });
+    );
 
     const data = JSON.stringify(response.data);
     res.render("index.ejs", {
@@ -87,6 +99,8 @@ app.get("/apiKey", async (req, res) => {
     res.render("index.ejs", {
       content: "Error",
     });
+    // Another way of sending error message with HTTP status code of 404
+    // res.status(404).send("Error: ", error.message);
   }
 });
 
@@ -103,11 +117,14 @@ app.get("/bearerToken", async (req, res) => {
   });
   */
   try {
-    const response = await axios.get(`https://secrets-api.appbrewery.com/secrets/42`, {
-      headers: {
-        Authorization: `Bearer ${yourBearerToken}`, 
+    const response = await axios.get(
+      `https://secrets-api.appbrewery.com/secrets/42`,
+      {
+        headers: {
+          Authorization: `Bearer ${yourBearerToken}`,
+        },
       },
-    });
+    );
     const data = JSON.stringify(response.data);
     res.render("index.ejs", {
       content: data,
@@ -117,6 +134,8 @@ app.get("/bearerToken", async (req, res) => {
     res.render("index.ejs", {
       content: "Error",
     });
+    // Another way of sending error message with HTTP status code of 404
+    // res.status(404).send("Error: ", error.message);
   }
 });
 
