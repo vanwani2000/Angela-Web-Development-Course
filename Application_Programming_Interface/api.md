@@ -499,3 +499,10 @@ You have a user for a service and you want to be able to act on their behalf, so
 Example -
 
 So, let's say you are building a third party app, say it's a weather app, but you have a special twist onthe app where you are going to hold of a user's events int their Google Calendar. So you want to see that they have a meeting, for example, one Tuesday and it's happening in Baltimore. So you grab all of these pieces of data and you look at the weather for that location and that date, and maybe you would be able to send the user an alert to tell them to bring an umbrella to that particular location. That's the idea behind interacting with the Google Calendar API.s For the user to be able to grant you access to this data. Well, what do you have to do? If you weren't using token-based authentication, then you would have to give the third party, the username and password, so that we can use this to interact with the Google Calendar API. Instead what we're able to do is we can use token-based authentication or OAuth to get the user to sign in with Google, and this generated a token for us to get hold of and then we can use this token to interact with the google calendar api. And then we can get hold of the user's event, their meetings, we can even post data or delete data. We can basically interact with Google Calendar as this user without ever needing to get hold of their username or password. And instead of all that security stuff is handled by Google. So this is a way more secure way of doing API Authentication.
+
+### Exercise
+
+1. Generate Token from "POST/get-auth-token"
+2. GET/secrets/{id} where id is the path-parameter because it is unique and it returns the secret with the specified ID. Token Authentication is required
+
+Go to the Authorization section inside POSTMAN, Click on **OAuth2.0** or **Bearer Token** and then therre put the token you have generated in Step 1.
