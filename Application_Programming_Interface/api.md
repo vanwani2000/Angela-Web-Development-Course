@@ -506,3 +506,5 @@ So, let's say you are building a third party app, say it's a weather app, but yo
 2. GET/secrets/{id} where id is the path-parameter because it is unique and it returns the secret with the specified ID. Token Authentication is required
 
 Go to the Authorization section inside POSTMAN, Click on **OAuth2.0** or **Bearer Token** and then therre put the token you have generated in Step 1.
+
+## REST API's
