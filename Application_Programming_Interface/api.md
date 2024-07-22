@@ -66,6 +66,8 @@ We will study REST:API for this course
 
 REST use HTTP protocols to interact with the API.
 
+For more information go to [REST API](./HTTPS.js) markdown file.
+
 There is an API provided by International Space Station to know the exact location of ISS.
 
 When you read the documentation provided by the ISS, it tells things to access to get the response from this API.
@@ -507,4 +509,191 @@ So, let's say you are building a third party app, say it's a weather app, but yo
 
 Go to the Authorization section inside POSTMAN, Click on **OAuth2.0** or **Bearer Token** and then therre put the token you have generated in Step 1.
 
-## REST API's
+> **Another way of sending error message with HTTP status code of 404** -
+
+```js
+res.status(404).send("Error: ", error.message);
+```
+
+## REST API's (Making GET, POST, PUT, PATCH, and DELETE API Requests) -
+
+We saw from previously that we can make GET request using Axios by putting it inside a "try-catch block" -
+
+```js
+app.get("/", async (req, res) => {
+  try {
+    const response = await axios.get("URL", {
+      params: {
+        ID: 12345,
+      },
+    });
+    res.json({
+      data: response.data,
+    });
+
+    // res.render("index.ejs", {
+    //   data: response.data,
+    // });
+  } catch (error) {
+    res.status(404).send(error.response.data);
+  }
+});
+```
+
+Inside this try-catch block, we use the method, axios.get() and then we can pass in a URL and also some piece of **_config, or data, or headers, or authentication_** whatever you like to pass. Read [Axios Documentation](https://axios-http.com/docs/intro) for more information.
+
+There is also any alternative way instead of using try-catch block, it is called **chaining** method -
+
+```js
+import axios from "axios";
+
+axios.get("URL" {
+  params: {
+    ID: 12345,
+  },
+}).then (function (response) {
+  res.json({
+    data: response.data
+  });
+}).catch (function (error) {
+  res.status(404).send(error.response.data);
+}).finally()
+```
+
+What is the difference between chaining and marking the method as async and use the await keyword method before we call something like axios.get()?
+
+> Both are these come from Javascript **_Promise API_**, but they work slightly different.
+>
+> The .then() method gets triggered once this promise gets resolved, So then it will wait until axios.get() method is done and then it'll look at the .then() and inside the .then() we can have another .then(), we can have promised-based method and we can keep chaining these to happen in order.
+>
+> The alternatives is the more modern syntax which was introduced in 2017 as a part of **ES8** upgrade to javascript. And this is formed by the async and await keyword. What happens in this case is we have a particular function and this function is marked as **asynchronous**, by having the **async** keyword before it, and then we can have the name of the function, for example -
+
+```js
+app.get("/", async (req, res) => {});
+```
+
+> and then inside here we can have some sort of process, that happens asynchronously and all we have to do is to mark it with the word await.
+
+```js
+app.get("/", async (req, res) => {
+  const response = await axios.get();
+});
+```
+
+> What this says is wait until this process is done before continuing to the next line of code. And the nice thing about this style is that it kind of makes our code look as it is asynchronous code. It will run line by line only. Once this line of code is completed then we continue to the next line of code, whereas with the .then() syntax, it can a little bit hairy when you're tyring to debug it, especially if you have lots of things chained on and you get confused, What is the order of things being called?
+
+```js
+app.get("/", async (req, res) => {
+  try {
+    const response = await axios.get("URL", {
+      params: {
+        ID: 12345,
+      },
+    });
+    res.json({
+      data: response.data,
+    });
+
+    // res.render("index.ejs", {
+    //   data: response.data,
+    // });
+  } catch (error) {
+    res.status(404).send(error.response.data);
+  }
+});
+```
+
+> **IMPORTANT:**
+>
+> App.get: Used within an Express.js application to define a route handler for HTTP GET requests on a specific URL path. It's a server-side function that dictates how the server responds to GET requests.
+>
+> Axios.get: Used within a client-side JavaScript application (usually in a web browser) to make an HTTP GET request to a server endpoint (URL). It's a way to fetch data from a server asynchronously.
+
+### To include rest of HTTP Protocols -
+
+because for an API to be fully RESTfull it should be able to handle all of these different routes.
+
+1. GET
+2. POST
+3. PUT
+4. PATCH
+5. DELETE
+
+Let's see how to make a POST request using Axios. With the axios.get() syntax, we have essentially only two optional parameters
+
+### GET -
+
+1. URL
+2. config - like sending parameters, headers, body, Authentication.
+
+### POST -
+
+1. URL
+2. Body - (data on the Axios Documentation). Basically it is the body of your form data. So maybe you have something called Username and you set it to some sort of value.
+
+```js
+const response = await axios.post("URL", {
+  {
+  // body parameter
+    username: "Raja Vanwani",
+    password: "1212",
+  },
+}, {
+auth: {
+  username: ///,
+  password: ///,
+},
+});
+```
+
+This is the body of the **url-encoded data** that you normally get from your HTML form, and that is what you would put in here to be sent over when you're making the POST request.
+
+3. Config - And similar to with GET you can also add different configs into this third optional parameter such as the headers, authentication, body, parameters and so on...
+
+### PUT -
+
+It's pretty much identical to POST request.
+
+```js
+import axios from "axios";
+app.put("/", async (req, res) => {
+  try {
+    const response = app.put("URL", body, config);
+    res.sendStatus(200);
+  } catch {
+    res.status(400).send(error.response.data);
+  }
+});
+```
+
+### PATCH -
+
+Same as PUT
+
+```js
+import axios from "axios";
+app.patch("/", async (req, res) => {
+  try {
+    const response = app.patch("URL", body, config);
+    res.sendStatus(200);
+  } catch {
+    res.status(400).send(error.response.data);
+  }
+});
+```
+
+### DELETE -
+
+Only take two parameters which is URL, and second is what to delete.
+
+```js
+import axios from "axios";
+app.delete("/", async (req, res) => {
+  try {
+    const response = app.delete("URL", config);
+    res.sendStatus(200);
+  } catch {
+    res.status(400).send(error.response.data);
+  }
+});
+```
