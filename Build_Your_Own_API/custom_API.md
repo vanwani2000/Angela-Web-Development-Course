@@ -90,4 +90,31 @@ axios(config)
   });
 ```
 
-### Hello World
+### Challenge 2
+
+To get specific ID Joke
+
+```sh
+curl --location "http://localhost:3000/jokes/:id"
+```
+
+This is same as hitting the joke with id = 2
+
+```sh
+curl --location "http://localhost:3000/jokes/2"
+```
+
+```js
+app.get("/jokes/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const foundJoke = jokes.find((joke) => joke.id === id);
+  res.json(foundJoke);
+});
+```
+
+> **NOTE**
+>
+> The req that is coming from the user has a path parameter which has id in it.
+> In (req.params.id) - we are simply catching what id is coming from the user.
+> **_Since the id which is coming, is in the form of string, now we have to convert it into the interger._**
+> That's why we are using **_parseInt_**.
