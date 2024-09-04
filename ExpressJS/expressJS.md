@@ -412,7 +412,3 @@ Inside the function:
 console.log(\*\*dirname + "/public/index.html");: This line logs the path to the index.html file within the public directory, assuming the public directory is located in the same directory as your script.
 
 res.sendFile(\*\*dirname + "/public/index.html");: This line uses the res.sendFile method to send the content of the index.html file as the response to the user's request. This assumes you have an index.html file in your public directory that contains your website's main content.
-
-Hello World
-
-Hello World
