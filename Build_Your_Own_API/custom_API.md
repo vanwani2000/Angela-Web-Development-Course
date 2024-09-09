@@ -118,5 +118,3 @@ app.get("/jokes/:id", (req, res) => {
 > In (req.params.id) - we are simply catching what id is coming from the user.
 > **_Since the id which is coming, is in the form of string, now we have to convert it into the interger._**
 > That's why we are using **_parseInt_**.
-
-Raja Vanwani
