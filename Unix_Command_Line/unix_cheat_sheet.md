@@ -4,7 +4,7 @@
 
 ## Install Git Bash on Windows
 
-Navigate through [Gi](https://gitforwindows.org/) to download.
+Navigate through [Git](https://gitforwindows.org/) to download.
 
 Just make ensure **Windows Explorer Intergration** checkbox is checked for both
 

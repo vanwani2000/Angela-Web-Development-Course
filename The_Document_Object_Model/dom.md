@@ -45,7 +45,7 @@ There are the same ways to add javascript code inside html to render.
 The Revised code after dowgrading the function is -
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -73,7 +73,7 @@ The Revised code after dowgrading the function is -
 2 . Internal Javascript -
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -96,7 +96,7 @@ The Revised code after dowgrading the function is -
 3. External Javascript -
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -128,7 +128,7 @@ alert("Hello World");
 > But in case of javascript we have to put the script tag at the end of closing body tag.
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -147,7 +147,7 @@ alert("Hello World");
 > This is because let's say if we put the "script" tag above.
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -335,7 +335,7 @@ Angela's Method:
 
 ```js
 document.firstElementChild.lastElementChild.querySelector(
-  "ul",
+  "ul"
 ).lastElementChild.innerHTML = "Raja";
 ```
 
