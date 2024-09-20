@@ -1,4 +1,4 @@
-<h1 align="center" style="color: blue;">Custom_API</h1>
+<h1 align="center" style="color: lightGreen;">Custom_API</h1>
 
 The simple reason why we use API is because they make development so much faster. Instead of building out everything from scratch and collecting data, cleaning data or building up service, you can leverage other people's existing data, their services or their algorithms in order to build a product on top of that existing API.
 
@@ -15,7 +15,7 @@ You can put this in king of three categories -
 2. Two is if you have a proprietary algorithm or a really useful service that people can tap into using your API.
    Example - Let's say you create an algorithm which is not in the public and it is very useful, It will help you to monetize your API. Let's say you have two co-ordinates on globe and you calculate the direct distance between these two points or the distance taken by car to get there via the available roads. Let's say you have Google Maps API data or some sort of satellite data that you amalgamate(add) into one algorithm or one service, and that is probably reasonably easy to build and it's something that would save people a lot of time so that they don't have to build this themselves and hence it would make your API valuable. Take example of **ChatGPT**.
 
-3. A simplified interface, a simplified API for people to be able to work with something elsse, be it a real world service or another API.
+3. A simplified interface, a simplified API for people to be able to work with something else, be it a real world service or another API.
    Example - Let's say you wanted to be able to have an API that allows you to order a Pizza. So you just give the API as input parameters, your location, and you card details and then you would have pizza arrive at you doorstep. That's a pretty valuable API, and that essentially is taking a real-world service that doesn't have any sort of internet enable capabilites. You know, the ability to orde a Pizza from domino's, maybe they don't have an API, maybe they just have a simple web-form, and you use something like Python and you cobble a whole bunch of things together in order to call this API. And on a more complex scale, you could maybe take some of the more large scale API's like the Google Maps API, or the Google Sheets API,and they're all kind of complicated because they allow you to do many many thing with that API. Let's say in common people only do one to two things through API, so you simplified it down from complex to simple.
 
    An open source [Pizza Api](https://github.com/RIAEvangelist/node-dominos-pizza-api) like dominos. You can make pull request or simply clone the api for personal use. If it was on Rapid Api, you can't clone that and you have to give some money to use that API.
