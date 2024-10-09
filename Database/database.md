@@ -93,3 +93,5 @@ Disadvantages of NoSql -
 With over time Nosql is not so great and sql just because of one things which is relationships among tables. For large infrastructures which are using nosql are facing common issues like consistency and scalability. But in case of our sql, we are able to join tables, being able to query efficiently actually vastly increases the speed of databases access.
 
 In addition, having the structure, being able to plan your database, plan your relationships ahead of time, and having consistency that you can rely on, turns out, is really good for maintaining good code quality. So it means that your're not querying for somethings and then suddenly get back somethings you don't expect because, "Oh we were able to dynamically add fields and change the structure."
+
+In addition
