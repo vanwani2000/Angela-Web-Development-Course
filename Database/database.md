@@ -1,4 +1,4 @@
-<h1 style="color: lightGreen, align=center">Database</h1>
+<h1 style="color:blue;" align="center">Database</h1>
 
 ## Where did my data go?
 
