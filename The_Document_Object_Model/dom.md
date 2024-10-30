@@ -711,7 +711,3 @@ To set the property of this particular attribute to point towards bing.com inste
 
 1. Which attribute
 2. Value of that attribute to change.
-
-```js
-document.querySelector("a").setAttribute("href", "https://www.bing.com");
-```
